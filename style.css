@@ -1,4 +1,4 @@
-/* ����� ����� */
+/* Общие стили */
 * {
     margin: 0;
     padding: 0;
@@ -9,15 +9,15 @@ body {
     font-family: 'Segoe UI', Arial, sans-serif;
     background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
     min-height: 100vh;
-    padding: 20px;
+    padding: 10px; /* Уменьшили отступы на мобильных */
     position: relative;
 }
 
-/* ����� */
+/* Шапка */
 .header {
     text-align: center;
-    margin-bottom: 30px;
-    padding: 20px;
+    margin-bottom: 20px;
+    padding: 15px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     backdrop-filter: blur(10px);
@@ -25,8 +25,8 @@ body {
 
 .page-title {
     color: white;
-    font-size: 2.5em;
-    margin-bottom: 10px;
+    font-size: 2em; /* Уменьшили для мобильных */
+    margin-bottom: 5px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     animation: titleGlow 2s ease-in-out infinite;
 }
@@ -38,10 +38,10 @@ body {
 
 .subtitle {
     color: rgba(255, 255, 255, 0.9);
-    font-size: 1.2em;
+    font-size: 1em;
 }
 
-/* ����� �������� */
+/* Сетка карточек - по умолчанию для десктопа */
 .cards-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -51,7 +51,7 @@ body {
     padding: 20px;
 }
 
-/* ����� �������� */
+/* Стили карточки */
 .card {
     cursor: pointer;
     transition: all 0.3s ease;
@@ -95,7 +95,7 @@ body {
     transform: scale(1.1);
 }
 
-/* ����� ����� */
+/* Номер карты */
 .card-number {
     position: absolute;
     top: 10px;
@@ -109,7 +109,7 @@ body {
     z-index: 2;
 }
 
-/* ��������� ���� */
+/* Модальное окно */
 .modal {
     display: none;
     position: fixed;
@@ -229,7 +229,7 @@ body {
     box-shadow: 0 5px 15px rgba(255,215,0,0.4);
 }
 
-/* ������ "������" */
+/* Кнопка "Наверх" */
 .scroll-top {
     position: fixed;
     bottom: 30px;
@@ -260,7 +260,7 @@ body {
     display: flex;
 }
 
-/* ��������� �������� */
+/* Индикатор загрузки */
 .loading {
     text-align: center;
     color: white;
@@ -285,15 +285,43 @@ body {
     to { transform: rotate(360deg); }
 }
 
-/* ������������ */
+/* ========== МОБИЛЬНЫЕ НАСТРОЙКИ ========== */
+
+/* Планшеты (горизонтальная ориентация) */
+@media (max-width: 1024px) {
+    .cards-container {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+        padding: 15px;
+    }
+}
+
+/* Планшеты (вертикальная ориентация) и большие телефоны */
 @media (max-width: 768px) {
+    body {
+        padding: 8px;
+    }
+    
+    .header {
+        padding: 12px;
+        margin-bottom: 15px;
+    }
+    
     .page-title {
-        font-size: 2em;
+        font-size: 1.8em;
     }
     
     .cards-container {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        gap: 15px;
+        grid-template-columns: repeat(3, 1fr); /* 3 карточки в ряд */
+        gap: 10px;
+        padding: 10px;
+    }
+    
+    .card-number {
+        top: 5px;
+        right: 5px;
+        padding: 3px 8px;
+        font-size: 10px;
     }
     
     .modal-body {
@@ -322,13 +350,82 @@ body {
     }
 }
 
+/* Маленькие телефоны */
 @media (max-width: 480px) {
+    body {
+        padding: 5px;
+    }
+    
+    .header {
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    
+    .page-title {
+        font-size: 1.5em;
+    }
+    
+    .subtitle {
+        font-size: 0.9em;
+    }
+    
     .cards-container {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(4, 1fr); /* 4 карточки в ряд! */
+        gap: 5px;
+        padding: 5px;
+    }
+    
+    .card {
+        border-radius: 8px;
+    }
+    
+    .card-number {
+        top: 3px;
+        right: 3px;
+        padding: 2px 5px;
+        font-size: 8px;
+        border-radius: 10px;
     }
     
     .scroll-top {
-        bottom: 20px;
-        right: 20px;
+        bottom: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+}
+
+/* Очень маленькие телефоны (iPhone SE и подобные) */
+@media (max-width: 360px) {
+    .cards-container {
+        grid-template-columns: repeat(4, 1fr); /* Всё ещё 4 карточки */
+        gap: 4px;
+    }
+    
+    .card-number {
+        font-size: 7px;
+        padding: 1px 4px;
+    }
+}
+
+/* Альбомная ориентация на телефонах */
+@media (max-height: 480px) and (orientation: landscape) {
+    .cards-container {
+        grid-template-columns: repeat(6, 1fr); /* 6 карточек в ряд в горизонтальном режиме */
+        gap: 8px;
+    }
+    
+    .modal-content {
+        margin: 1% auto;
+        padding: 15px;
+    }
+    
+    .modal-body {
+        flex-direction: row;
+    }
+    
+    .modal-image {
+        width: 150px;
     }
 }
