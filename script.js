@@ -1,17 +1,3 @@
-// Проверка секретного ключа
-const urlParams = new URLSearchParams(window.location.search);
-const secretKey = urlParams.get('key');
-
-// Замените "ваше_секретное_слово" на то, что придумаете
-if (secretKey !== 'open') {
-    document.body.innerHTML = `
-        <div style="text-align: center; margin-top: 50px; font-family: Arial;">
-            <h1>🔐 Доступ ограничен</h1>
-            <p>Это приложение доступно только по специальной ссылке.</p>
-        </div>
-    `;
-    throw new Error('Доступ запрещен'); // Останавливаем выполнение скрипта
-}
 // Генерация данных для 60 карт
 function generateCardsData() {
     const titles = [
@@ -260,3 +246,4 @@ window.addEventListener('load', function() {
     console.log('Все ресурсы загружены');
 
 });
+
