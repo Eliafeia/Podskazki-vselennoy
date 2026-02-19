@@ -246,4 +246,3 @@ window.addEventListener('load', function() {
     console.log('Все ресурсы загружены');
 
 });
-
