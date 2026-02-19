@@ -5,43 +5,46 @@
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+    width: 100%;
+    min-height: 100vh;
+}
+
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
-    /* Улучшенная версия для мобильных */
-    background: url('./images/fon.jpg') no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    min-height: 100vh;
-    min-height: -webkit-fill-available; /* Для мобильных браузеров */
-    padding: 10px;
     position: relative;
-    width: 100%;
-    height: 100%;
+    padding: 10px;
+    min-height: 100vh;
 }
 
-/* Дополнительный костыль для мобильных Safari */
-html {
-    height: 100%;
-    width: 100%;
-}
-
-/* Добавляем полупрозрачный слой поверх фона для лучшей читаемости */
-body::before {
-    content: '';
+/* Отдельный слой для фона - 100% работает на всех устройствах */
+.background-fixed {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.3); /* Легкое затемнение */
-    pointer-events: none; /* Чтобы не мешать кликам */
-    z-index: 0;
+    background: url('./images/fon.jpg') no-repeat center center;
+    background-size: cover;
+    z-index: -2;
+    pointer-events: none;
 }
 
-/* Все содержимое должно быть выше затемняющего слоя */
-.header, .cards-container, .scroll-top, .modal {
+/* Затемняющий слой */
+.background-fixed::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: -1;
+}
+
+/* Все содержимое выше фона */
+.header, .cards-container, .scroll-top, .modal, .telegram-link {
     position: relative;
     z-index: 1;
 }
@@ -56,7 +59,7 @@ body::before {
     gap: 8px;
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px); /* Для Safari */
+    -webkit-backdrop-filter: blur(5px);
     padding: 8px 15px 8px 10px;
     border-radius: 50px;
     text-decoration: none;
@@ -66,11 +69,331 @@ body::before {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Остальные стили остаются без изменений до мобильных медиа-запросов */
+.telegram-link:hover {
+    transform: translateY(-2px);
+    border-color: gold;
+    background: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3);
+}
+
+.telegram-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid gold;
+    transition: transform 0.3s ease;
+}
+
+.telegram-link:hover .telegram-icon {
+    transform: rotate(360deg);
+}
+
+.telegram-text {
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Шапка */
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.page-title {
+    color: white;
+    font-size: 2em;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    animation: titleGlow 2s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+@keyframes titleGlow {
+    0%, 100% { text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+    50% { text-shadow: 0 0 20px rgba(255,215,0,0.5); }
+}
+
+/* Стили для иконки в заголовке */
+.title-icon {
+    width: 50px;
+    height: 50px;
+    vertical-align: middle;
+    margin-right: 15px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    object-fit: cover;
+    border: 2px solid rgba(255, 215, 0, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.title-icon:hover {
+    transform: rotate(5deg) scale(1.1);
+    border-color: gold;
+}
+
+.subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1em;
+}
+
+/* Сетка карточек */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Стили карточки */
+.card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    background: white;
+    position: relative;
+    aspect-ratio: 2/3;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1));
+    pointer-events: none;
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 30px rgba(0,0,0,0.4);
+}
+
+.card:active {
+    transform: translateY(-5px) scale(1.01);
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s;
+}
+
+.card:hover img {
+    transform: scale(1.1);
+}
+
+/* Номер карты */
+.card-number {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: gold;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 2;
+}
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    animation: fadeIn 0.3s;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    margin: 3% auto;
+    padding: 30px;
+    width: 90%;
+    max-width: 900px;
+    border-radius: 30px;
+    position: relative;
+    animation: slideIn 0.4s;
+    border: 3px solid rgba(255, 215, 0, 0.3);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-100px) scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+.close {
+    position: absolute;
+    right: 25px;
+    top: 15px;
+    font-size: 40px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.close:hover {
+    color: gold;
+    transform: rotate(90deg);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.modal-body {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.modal-image {
+    width: 300px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 20px 30px rgba(0,0,0,0.3);
+    border: 4px solid gold;
+}
+
+.modal-text {
+    flex: 1;
+    color: white;
+}
+
+#modalTitle {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: gold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+#modalDescription {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.modal-footer {
+    text-align: right;
+}
+
+.modal-close-btn {
+    background: gold;
+    color: #333;
+    border: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.modal-close-btn:hover {
+    background: #ffd700;
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(255,215,0,0.4);
+}
+
+/* Кнопка "Наверх" */
+.scroll-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: gold;
+    color: #333;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    z-index: 99;
+}
+
+.scroll-top:hover {
+    background: #ffd700;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(255,215,0,0.4);
+}
+
+.scroll-top.show {
+    display: flex;
+}
+
+/* Индикатор загрузки */
+.loading {
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    padding: 50px;
+    grid-column: 1 / -1;
+}
+
+.loading::after {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    border: 3px solid white;
+    border-top-color: gold;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
 
 /* ========== МОБИЛЬНЫЕ НАСТРОЙКИ ========== */
 
-/* Планшеты (горизонтальная ориентация) */
 @media (max-width: 1024px) {
     .cards-container {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -79,20 +402,9 @@ body::before {
     }
 }
 
-/* Планшеты (вертикальная ориентация) и большие телефоны */
 @media (max-width: 768px) {
     body {
         padding: 8px;
-        /* Убеждаемся что фон работает на мобильных */
-        background-attachment: scroll; /* Для некоторых мобильных браузеров fixed работает плохо */
-    }
-    
-    /* Альтернативный фон для мобильных, если основной не грузится */
-    @media not all and (min-resolution: .001dpcm) {
-        body {
-            background: url('./images/fon.jpg') no-repeat center center scroll;
-            background-size: cover;
-        }
     }
     
     .header {
@@ -111,7 +423,6 @@ body::before {
         border-radius: 12px;
     }
     
-    /* Мобильные стили для Telegram ссылки */
     .telegram-link {
         top: 10px;
         left: 10px;
@@ -166,11 +477,9 @@ body::before {
     }
 }
 
-/* Маленькие телефоны */
 @media (max-width: 480px) {
     body {
         padding: 5px;
-        background-attachment: scroll; /* Для мобильных лучше scroll чем fixed */
     }
     
     .header {
@@ -194,7 +503,6 @@ body::before {
         font-size: 0.9em;
     }
     
-    /* Мобильные стили для Telegram ссылки */
     .telegram-link {
         top: 8px;
         left: 8px;
@@ -238,7 +546,6 @@ body::before {
     }
 }
 
-/* Очень маленькие телефоны (iPhone SE и подобные) */
 @media (max-width: 360px) {
     .cards-container {
         grid-template-columns: repeat(4, 1fr);
@@ -257,7 +564,6 @@ body::before {
         border-radius: 8px;
     }
     
-    /* Мобильные стили для Telegram ссылки */
     .telegram-link {
         padding: 4px 8px 4px 5px;
     }
@@ -272,12 +578,7 @@ body::before {
     }
 }
 
-/* Альбомная ориентация на телефонах */
 @media (max-height: 480px) and (orientation: landscape) {
-    body {
-        background-attachment: scroll;
-    }
-    
     .cards-container {
         grid-template-columns: repeat(6, 1fr);
         gap: 8px;
@@ -296,7 +597,6 @@ body::before {
         width: 150px;
     }
     
-    /* Альбомные стили для Telegram ссылки */
     .telegram-link {
         top: 5px;
         left: 5px;
