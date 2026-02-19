@@ -2,19 +2,20 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <!-- Улучшенный мета-тег для мобильных устройств -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Подсказки Вселенной</title>
     <link rel="stylesheet" href="style.css">
     <!-- Для Telegram Mini App (опционально) -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     
-    <!-- Дополнительные мета-теги для лучшей мобильной поддержки -->
     <meta name="theme-color" content="#1e3c72">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
+    <!-- Отдельный div для фона (100% будет работать на мобильных) -->
+    <div class="background-fixed"></div>
+
     <!-- Кликабельная ссылка на Telegram в левом верхнем углу -->
     <a href="https://t.me/eliafeia" target="_blank" class="telegram-link" title="Перейти в Telegram">
         <img src="images/table.jpg" alt="Telegram" class="telegram-icon">
