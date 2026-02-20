@@ -39,8 +39,8 @@ body::before {
     top: 15px;
     left: 15px;
     display: flex;
-    flex-direction: column; /* Вертикальное расположение */
-    gap: 10px;
+    flex-direction: column;
+    gap: 5px;
     z-index: 1001;
 }
 
@@ -48,15 +48,16 @@ body::before {
 .social-link {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(5px);
-    padding: 8px 15px 8px 10px;
-    border-radius: 50px;
+    padding: 4px 10px 4px 6px;
+    border-radius: 25px;
     text-decoration: none;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    width: fit-content; /* Ширина по содержимому */
+    width: auto;
+    border-width: 1px;
 }
 
 .social-link:hover {
@@ -65,11 +66,12 @@ body::before {
 }
 
 .social-icon {
-    width: 30px;
-    height: 30px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
     object-fit: cover;
     transition: transform 0.3s ease;
+    border-width: 1px;
 }
 
 .social-link:hover .social-icon {
@@ -78,14 +80,15 @@ body::before {
 
 .social-text {
     color: white;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
 }
 
 /* Специфичные стили для Telegram */
 .telegram-link {
-    border: 2px solid rgba(255, 215, 0, 0.3);
+    border: 1px solid rgba(255, 215, 0, 0.3);
 }
 
 .telegram-link:hover {
@@ -94,12 +97,12 @@ body::before {
 }
 
 .telegram-link .social-icon {
-    border: 2px solid gold;
+    border: 1px solid gold;
 }
 
 /* Специфичные стили для VK */
 .vk-link {
-    border: 2px solid rgba(0, 100, 255, 0.3);
+    border: 1px solid rgba(0, 100, 255, 0.3);
 }
 
 .vk-link:hover {
@@ -108,7 +111,7 @@ body::before {
 }
 
 .vk-link .social-icon {
-    border: 2px solid #4a76a8;
+    border: 1px solid #4a76a8;
 }
 
 /* Шапка */
@@ -119,7 +122,7 @@ body::before {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     backdrop-filter: blur(10px);
-    margin-top: 80px; /* Отступ сверху, чтобы не перекрывать соцсети */
+    margin-top: 80px;
 }
 
 .page-title {
@@ -426,7 +429,7 @@ body::before {
     .header {
         padding: 12px;
         margin-bottom: 15px;
-        margin-top: 100px; /* Увеличиваем отступ для мобильных */
+        margin-top: 70px;
     }
     
     .page-title {
@@ -443,20 +446,20 @@ body::before {
     .social-links {
         top: 10px;
         left: 10px;
-        gap: 8px;
+        gap: 5px;
     }
     
     .social-link {
-        padding: 6px 12px 6px 8px;
+        padding: 4px 8px 4px 5px;
     }
     
     .social-icon {
-        width: 25px;
-        height: 25px;
+        width: 20px;
+        height: 20px;
     }
     
     .social-text {
-        font-size: 12px;
+        font-size: 11px;
     }
     
     .cards-container {
@@ -507,7 +510,7 @@ body::before {
     .header {
         padding: 10px;
         margin-bottom: 10px;
-        margin-top: 110px; /* Еще больше отступ для маленьких экранов */
+        margin-top: 65px;
     }
     
     .page-title {
@@ -529,21 +532,20 @@ body::before {
     .social-links {
         top: 8px;
         left: 8px;
-        gap: 6px;
+        gap: 4px;
     }
     
     .social-link {
-        padding: 5px 10px 5px 6px;
+        padding: 3px 7px 3px 4px;
     }
     
     .social-icon {
-        width: 22px;
-        height: 22px;
-        border-width: 1.5px;
+        width: 18px;
+        height: 18px;
     }
     
     .social-text {
-        font-size: 11px;
+        font-size: 10px;
     }
     
     .cards-container {
@@ -593,16 +595,16 @@ body::before {
     }
     
     .social-link {
-        padding: 4px 8px 4px 5px;
+        padding: 3px 6px 3px 3px;
     }
     
     .social-icon {
-        width: 20px;
-        height: 20px;
+        width: 16px;
+        height: 16px;
     }
     
     .social-text {
-        font-size: 10px;
+        font-size: 9px;
     }
 }
 
@@ -614,7 +616,7 @@ body::before {
     }
     
     .header {
-        margin-top: 70px; /* Меньше отступ в альбомной ориентации */
+        margin-top: 60px;
     }
     
     .modal-content {
@@ -633,10 +635,10 @@ body::before {
     .social-links {
         top: 5px;
         left: 5px;
-        gap: 5px;
+        gap: 4px;
     }
     
     .social-link {
-        padding: 4px 8px 4px 5px;
+        padding: 3px 7px 3px 4px;
     }
 }
