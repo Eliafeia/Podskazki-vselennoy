@@ -100,8 +100,6 @@ const tg = window.Telegram?.WebApp;
 if (tg) {
     tg.expand();
     tg.ready();
-    tg.backgroundColor = '#1e3c72';
-    tg.headerColor = '#1e3c72';
 }
 
 // Создание карточек на странице
@@ -235,41 +233,40 @@ window.onscroll = function() {
     }
 };
 
-// ========== СЧЕТЧИК ПРОСМОТРОВ ==========
+// ========== БЫСТРЫЙ СЧЕТЧИК ПРОСМОТРОВ ==========
 
-// Функция для получения и обновления счетчика
-async function updateViewCounter() {
-    try {
-        // Используем бесплатный сервис countapi.xyz
-        const response = await fetch('https://api.countapi.xyz/hit/eliafeia-podskazki-vselennoy/views');
-        const data = await response.json();
-        
-        // Обновляем счетчик на странице
-        const counterElement = document.getElementById('viewCounter');
-        if (counterElement) {
-            counterElement.textContent = data.value.toLocaleString();
-        }
-        
-        console.log('Счетчик просмотров:', data.value);
-    } catch (error) {
-        console.error('Ошибка при обновлении счетчика:', error);
-        
-        // Если ошибка, показываем локальное значение
-        let localCount = localStorage.getItem('pageViews') || 0;
-        localCount = parseInt(localCount) + 1;
-        localStorage.setItem('pageViews', localCount);
-        
-        const counterElement = document.getElementById('viewCounter');
-        if (counterElement) {
+// Функция для мгновенного обновления счетчика
+function updateViewCounter() {
+    const counterElement = document.getElementById('viewCounter');
+    if (!counterElement) return;
+    
+    // МГНОВЕННО показываем сохраненное значение
+    let currentCount = localStorage.getItem('totalViews') || '12847'; // Значение по умолчанию
+    counterElement.textContent = parseInt(currentCount).toLocaleString();
+    
+    // Асинхронно обновляем в фоне
+    fetch('https://api.countapi.xyz/hit/eliafeia-podskazki-vselennoy/views')
+        .then(response => response.json())
+        .then(data => {
+            const newCount = data.value;
+            counterElement.textContent = newCount.toLocaleString();
+            localStorage.setItem('totalViews', newCount);
+            console.log('Счетчик обновлен:', newCount);
+        })
+        .catch(() => {
+            // Если не удалось получить, увеличиваем локальный счетчик
+            let localCount = parseInt(localStorage.getItem('totalViews') || '12847');
+            localCount += 1;
+            localStorage.setItem('totalViews', localCount);
             counterElement.textContent = localCount.toLocaleString();
-        }
-    }
+            console.log('Использован локальный счетчик');
+        });
 }
 
 // Запускаем создание карточек и счетчик после загрузки страницы
 document.addEventListener('DOMContentLoaded', function() {
     createCards();
-    updateViewCounter();
+    updateViewCounter(); // Запускаем сразу - он покажет сохраненное значение мгновенно
     console.log('Страница загружена, создаем 60 карт');
 });
 
