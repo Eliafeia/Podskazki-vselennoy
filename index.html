@@ -9,7 +9,7 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <!-- Контейнер для социальных ссылок -->
+    <!-- Контейнер для социальных ссылок (слева) -->
     <div class="social-links">
         <!-- Кликабельная ссылка на Telegram -->
         <a href="https://t.me/eliafeia" target="_blank" class="social-link telegram-link" title="Перейти в Telegram">
@@ -19,10 +19,17 @@
 
         <!-- Кликабельная ссылка на VK -->
         <a href="https://vk.com/id214925682" target="_blank" class="social-link vk-link" title="Перейти в ВК">
-            <!-- Локальная JPG иконка -->
             <img src="images/vk-icon.jpg" alt="VK" class="social-icon">
             <span class="social-text">ВКонтакте</span>
         </a>
+    </div>
+
+    <!-- Счетчик просмотров (справа) -->
+    <div class="counter-container">
+        <div class="counter">
+            <span class="counter-label">Просмотров:</span>
+            <span class="counter-number" id="viewCounter">0</span>
+        </div>
     </div>
 
     <!-- Шапка с заголовком -->
