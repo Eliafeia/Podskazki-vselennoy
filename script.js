@@ -243,6 +243,14 @@ function updateViewCounter() {
     // Значение по умолчанию - 74
     const DEFAULT_VALUE = 74;
     
+    // ПРИНУДИТЕЛЬНЫЙ СБРОС для Telegram (один раз)
+    if (!localStorage.getItem('counterReset')) {
+        localStorage.removeItem('totalViews');
+        localStorage.removeItem('pageViews');
+        localStorage.setItem('counterReset', 'done');
+        console.log('Сброс счетчика для Telegram');
+    }
+    
     // МГНОВЕННО показываем сохраненное значение или 74
     let currentCount = localStorage.getItem('totalViews');
     
