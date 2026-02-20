@@ -240,8 +240,18 @@ function updateViewCounter() {
     const counterElement = document.getElementById('viewCounter');
     if (!counterElement) return;
     
-    // МГНОВЕННО показываем сохраненное значение
-    let currentCount = localStorage.getItem('totalViews') || '74'; // Значение по умолчанию
+    // Значение по умолчанию - 74
+    const DEFAULT_VALUE = 74;
+    
+    // МГНОВЕННО показываем сохраненное значение или 74
+    let currentCount = localStorage.getItem('totalViews');
+    
+    // Если нет сохраненного значения или оно меньше 74, показываем 74
+    if (!currentCount || parseInt(currentCount) < DEFAULT_VALUE) {
+        currentCount = DEFAULT_VALUE;
+        localStorage.setItem('totalViews', DEFAULT_VALUE);
+    }
+    
     counterElement.textContent = parseInt(currentCount).toLocaleString();
     
     // Асинхронно обновляем в фоне
@@ -255,7 +265,7 @@ function updateViewCounter() {
         })
         .catch(() => {
             // Если не удалось получить, увеличиваем локальный счетчик
-            let localCount = parseInt(localStorage.getItem('totalViews') || '74');
+            let localCount = parseInt(localStorage.getItem('totalViews') || DEFAULT_VALUE);
             localCount += 1;
             localStorage.setItem('totalViews', localCount);
             counterElement.textContent = localCount.toLocaleString();
@@ -266,7 +276,7 @@ function updateViewCounter() {
 // Запускаем создание карточек и счетчик после загрузки страницы
 document.addEventListener('DOMContentLoaded', function() {
     createCards();
-    updateViewCounter(); // Запускаем сразу - он покажет сохраненное значение мгновенно
+    updateViewCounter(); // Запускаем сразу - он покажет 74 или сохраненное значение
     console.log('Страница загружена, создаем 60 карт');
 });
 
@@ -274,4 +284,3 @@ document.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('load', function() {
     console.log('Все ресурсы загружены');
 });
-
