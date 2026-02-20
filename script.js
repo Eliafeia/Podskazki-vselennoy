@@ -132,7 +132,7 @@ function createCards() {
             const img = document.createElement('img');
             img.src = cardsData[i].smallImage;
             img.alt = cardsData[i].title;
-            img.loading = 'lazy'; // Ленивая загрузка для производительности
+            img.loading = 'lazy';
             
             // Если картинка не загрузится, покажем заглушку
             img.onerror = function() {
@@ -146,7 +146,7 @@ function createCards() {
         }
         
         console.log('Создано 60 карточек');
-    }, 100); // Небольшая задержка для показа анимации загрузки
+    }, 100);
 }
 
 // Функция открытия модального окна
@@ -235,14 +235,45 @@ window.onscroll = function() {
     }
 };
 
-// Запускаем создание карточек после загрузки страницы
+// ========== СЧЕТЧИК ПРОСМОТРОВ ==========
+
+// Функция для получения и обновления счетчика
+async function updateViewCounter() {
+    try {
+        // Используем бесплатный сервис countapi.xyz
+        const response = await fetch('https://api.countapi.xyz/hit/eliafeia-podskazki-vselennoy/views');
+        const data = await response.json();
+        
+        // Обновляем счетчик на странице
+        const counterElement = document.getElementById('viewCounter');
+        if (counterElement) {
+            counterElement.textContent = data.value.toLocaleString();
+        }
+        
+        console.log('Счетчик просмотров:', data.value);
+    } catch (error) {
+        console.error('Ошибка при обновлении счетчика:', error);
+        
+        // Если ошибка, показываем локальное значение
+        let localCount = localStorage.getItem('pageViews') || 0;
+        localCount = parseInt(localCount) + 1;
+        localStorage.setItem('pageViews', localCount);
+        
+        const counterElement = document.getElementById('viewCounter');
+        if (counterElement) {
+            counterElement.textContent = localCount.toLocaleString();
+        }
+    }
+}
+
+// Запускаем создание карточек и счетчик после загрузки страницы
 document.addEventListener('DOMContentLoaded', function() {
     createCards();
+    updateViewCounter();
     console.log('Страница загружена, создаем 60 карт');
 });
 
 // Предзагрузка изображений для плавности
 window.addEventListener('load', function() {
     console.log('Все ресурсы загружены');
-
 });
