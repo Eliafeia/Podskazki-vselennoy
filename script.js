@@ -241,7 +241,7 @@ function updateViewCounter() {
     if (!counterElement) return;
     
     // МГНОВЕННО показываем сохраненное значение
-    let currentCount = localStorage.getItem('totalViews') || '12847'; // Значение по умолчанию
+    let currentCount = localStorage.getItem('totalViews') || '74'; // Значение по умолчанию
     counterElement.textContent = parseInt(currentCount).toLocaleString();
     
     // Асинхронно обновляем в фоне
@@ -255,7 +255,7 @@ function updateViewCounter() {
         })
         .catch(() => {
             // Если не удалось получить, увеличиваем локальный счетчик
-            let localCount = parseInt(localStorage.getItem('totalViews') || '12847');
+            let localCount = parseInt(localStorage.getItem('totalViews') || '74');
             localCount += 1;
             localStorage.setItem('totalViews', localCount);
             counterElement.textContent = localCount.toLocaleString();
@@ -274,3 +274,4 @@ document.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('load', function() {
     console.log('Все ресурсы загружены');
 });
+
