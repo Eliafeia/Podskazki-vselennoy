@@ -28,7 +28,7 @@ body::before {
 }
 
 /* Все содержимое выше затемняющего слоя */
-.header, .cards-container, .scroll-top, .modal, .social-links {
+.header, .cards-container, .scroll-top, .modal, .social-links, .counter-container {
     position: relative;
     z-index: 1;
 }
@@ -51,13 +51,13 @@ body::before {
     gap: 8px;
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(5px);
-    padding: 8px 15px 8px 10px; /* Оригинальные паддинги */
-    border-radius: 50px; /* Оригинальный радиус */
+    padding: 8px 15px 8px 10px;
+    border-radius: 50px;
     text-decoration: none;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     width: fit-content;
-    border-width: 2px; /* Оригинальная толщина */
+    border-width: 2px;
 }
 
 .social-link:hover {
@@ -66,12 +66,12 @@ body::before {
 }
 
 .social-icon {
-    width: 30px; /* Оригинальный размер */
-    height: 30px; /* Оригинальный размер */
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     object-fit: cover;
     transition: transform 0.3s ease;
-    border-width: 2px; /* Оригинальная толщина */
+    border-width: 2px;
 }
 
 .social-link:hover .social-icon {
@@ -80,7 +80,7 @@ body::before {
 
 .social-text {
     color: white;
-    font-size: 14px; /* Оригинальный размер */
+    font-size: 14px;
     font-weight: 500;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     white-space: nowrap;
@@ -114,6 +114,51 @@ body::before {
     border: 2px solid #4a76a8;
 }
 
+/* Контейнер для счетчика */
+.counter-container {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 1001;
+}
+
+/* Стили счетчика */
+.counter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    padding: 8px 15px;
+    border-radius: 50px;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.counter:hover {
+    transform: translateY(-2px);
+    border-color: gold;
+    background: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.3);
+}
+
+.counter-label {
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.counter-number {
+    color: gold;
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    min-width: 40px;
+    text-align: center;
+}
+
 /* Шапка */
 .header {
     text-align: center;
@@ -122,7 +167,7 @@ body::before {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     backdrop-filter: blur(10px);
-    margin-top: 100px; /* Увеличил отступ под две ссылки */
+    margin-top: 100px;
 }
 
 .page-title {
@@ -462,6 +507,24 @@ body::before {
         font-size: 12px;
     }
     
+    .counter-container {
+        top: 10px;
+        right: 10px;
+    }
+    
+    .counter {
+        padding: 6px 12px;
+    }
+    
+    .counter-label {
+        font-size: 12px;
+    }
+    
+    .counter-number {
+        font-size: 16px;
+        min-width: 35px;
+    }
+    
     .cards-container {
         grid-template-columns: repeat(3, 1fr);
         gap: 10px;
@@ -548,6 +611,25 @@ body::before {
         font-size: 11px;
     }
     
+    .counter-container {
+        top: 8px;
+        right: 8px;
+    }
+    
+    .counter {
+        padding: 5px 10px;
+        border-width: 1.5px;
+    }
+    
+    .counter-label {
+        font-size: 11px;
+    }
+    
+    .counter-number {
+        font-size: 14px;
+        min-width: 30px;
+    }
+    
     .cards-container {
         grid-template-columns: repeat(4, 1fr);
         gap: 5px;
@@ -606,6 +688,24 @@ body::before {
     .social-text {
         font-size: 10px;
     }
+    
+    .counter-container {
+        top: 5px;
+        right: 5px;
+    }
+    
+    .counter {
+        padding: 4px 8px;
+    }
+    
+    .counter-label {
+        font-size: 10px;
+    }
+    
+    .counter-number {
+        font-size: 12px;
+        min-width: 25px;
+    }
 }
 
 /* Альбомная ориентация на телефонах */
@@ -640,5 +740,14 @@ body::before {
     
     .social-link {
         padding: 5px 10px 5px 5px;
+    }
+    
+    .counter-container {
+        top: 5px;
+        right: 5px;
+    }
+    
+    .counter {
+        padding: 4px 10px;
     }
 }
