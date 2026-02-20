@@ -3,31 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Podskazki Vselennoy</title> <!-- Изменил название на латиницу -->
+    <title>Podskazki Vselennoy</title>
     <link rel="stylesheet" href="style.css">
     <!-- Для Telegram Mini App (опционально) -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <!-- Кликабельная ссылка на Telegram в левом верхнем углу -->
-    <a href="https://t.me/eliafeia" target="_blank" class="telegram-link" title="Перейти в Telegram">
-        <img src="images/table.jpg" alt="Telegram" class="telegram-icon">
-        <span class="telegram-text">@eliafeia</span>
-    </a>
+    <!-- Контейнер для социальных ссылок -->
+    <div class="social-links">
+        <!-- Кликабельная ссылка на Telegram -->
+        <a href="https://t.me/eliafeia" target="_blank" class="social-link telegram-link" title="Перейти в Telegram">
+            <img src="images/table.jpg" alt="Telegram" class="social-icon">
+            <span class="social-text">@eliafeia</span>
+        </a>
 
-    <!-- Кликабельная ссылка на VK -->
-    <a href="https://vk.com/id214925682" target="_blank" class="vk-link" title="Перейти в ВК">
-        <img src="https://vk.com/images/icons/favicons/favicon-32x32.png" alt="VK" class="vk-icon"> <!-- Используем прямую ссылку на иконку ВК -->
-        <span class="vk-text">VK</span> <!-- Изменил текст на латиницу -->
-    </a>
+        <!-- Кликабельная ссылка на VK (под Telegram) -->
+        <a href="https://vk.com/id214925682" target="_blank" class="social-link vk-link" title="Перейти в ВК">
+            <img src="https://vk.com/images/icons/favicons/favicon-32x32.png" alt="VK" class="social-icon">
+            <span class="social-text">VK</span>
+        </a>
+    </div>
 
     <!-- Шапка с заголовком и счетчиком -->
     <div class="header">
         <h1 class="page-title">
-            <img src="images/table.jpg" alt="Icon" class="title-icon"> <!-- Изменил alt на латиницу -->
-            Podskazki Vselennoy <!-- Изменил заголовок на латиницу -->
+            <img src="images/table.jpg" alt="Icon" class="title-icon">
+            Podskazki Vselennoy
         </h1>
-        <p class="subtitle">Nazhmi na lyubuyu kartu, chtoby uznat predskazanie</p> <!-- Изменил на латиницу -->
+        <p class="subtitle">Nazhmi na lyubuyu kartu, chtoby uznat predskazanie</p>
     </div>
     
     <!-- Контейнер для карточек -->
@@ -38,12 +41,12 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <div class="modal-body">
-                <img id="modalImage" src="" alt="Big card" class="modal-image"> <!-- Изменил alt на латиницу -->
+                <img id="modalImage" src="" alt="Big card" class="modal-image">
                 <div class="modal-text">
                     <h2 id="modalTitle"></h2>
                     <p id="modalDescription"></p>
                     <div class="modal-footer">
-                        <button class="modal-close-btn" onclick="closeModal()">Zakryt</button> <!-- Изменил на латиницу -->
+                        <button class="modal-close-btn" onclick="closeModal()">Zakryt</button>
                     </div>
                 </div>
             </div>
