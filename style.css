@@ -5,46 +5,31 @@
     box-sizing: border-box;
 }
 
-html, body {
-    height: 100%;
-    width: 100%;
-    min-height: 100vh;
-}
-
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
-    position: relative;
-    padding: 10px;
+    /* Заменяем градиент на фоновое изображение */
+    background: url('images/fon.jpg') no-repeat center center fixed;
+    background-size: cover;
     min-height: 100vh;
+    padding: 10px;
+    position: relative;
 }
 
-/* Отдельный слой для фона - 100% работает на всех устройствах */
-.background-fixed {
+/* Добавляем полупрозрачный слой поверх фона для лучшей читаемости */
+body::before {
+    content: '';
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('./images/fon.jpg') no-repeat center center;
-    background-size: cover;
-    z-index: -2;
-    pointer-events: none;
+    background: rgba(0, 0, 0, 0.3); /* Легкое затемнение */
+    pointer-events: none; /* Чтобы не мешать кликам */
+    z-index: 0;
 }
 
-/* Затемняющий слой */
-.background-fixed::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: -1;
-}
-
-/* Все содержимое выше фона */
-.header, .cards-container, .scroll-top, .modal, .telegram-link {
+/* Все содержимое должно быть выше затемняющего слоя */
+.header, .cards-container, .scroll-top, .modal {
     position: relative;
     z-index: 1;
 }
@@ -59,7 +44,6 @@ body {
     gap: 8px;
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
     padding: 8px 15px 8px 10px;
     border-radius: 50px;
     text-decoration: none;
@@ -96,6 +80,52 @@ body {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
+/* Стили для ссылки на VK */
+.vk-link {
+    position: fixed;
+    top: 15px;
+    left: 180px; /* Отступ от Telegram ссылки */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    padding: 8px 15px 8px 10px;
+    border-radius: 50px;
+    text-decoration: none;
+    border: 2px solid rgba(0, 100, 255, 0.3);
+    transition: all 0.3s ease;
+    z-index: 1001;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.vk-link:hover {
+    transform: translateY(-2px);
+    border-color: #4a76a8;
+    background: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 6px 20px rgba(74, 118, 168, 0.3);
+}
+
+.vk-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #4a76a8;
+    transition: transform 0.3s ease;
+}
+
+.vk-link:hover .vk-icon {
+    transform: rotate(360deg);
+}
+
+.vk-text {
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
 /* Шапка */
 .header {
     text-align: center;
@@ -104,7 +134,6 @@ body {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
 }
 
 .page-title {
@@ -147,7 +176,7 @@ body {
     font-size: 1em;
 }
 
-/* Сетка карточек */
+/* Сетка карточек - по умолчанию для десктопа */
 .cards-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -227,7 +256,6 @@ body {
     background-color: rgba(0,0,0,0.9);
     animation: fadeIn 0.3s;
     backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
 }
 
 @keyframes fadeIn {
@@ -394,6 +422,7 @@ body {
 
 /* ========== МОБИЛЬНЫЕ НАСТРОЙКИ ========== */
 
+/* Планшеты (горизонтальная ориентация) */
 @media (max-width: 1024px) {
     .cards-container {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -402,6 +431,7 @@ body {
     }
 }
 
+/* Планшеты (вертикальная ориентация) и большие телефоны */
 @media (max-width: 768px) {
     body {
         padding: 8px;
@@ -423,6 +453,7 @@ body {
         border-radius: 12px;
     }
     
+    /* Мобильные стили для Telegram ссылки */
     .telegram-link {
         top: 10px;
         left: 10px;
@@ -435,6 +466,22 @@ body {
     }
     
     .telegram-text {
+        font-size: 12px;
+    }
+    
+    /* Мобильные стили для VK ссылки */
+    .vk-link {
+        top: 10px;
+        left: 160px;
+        padding: 6px 12px 6px 8px;
+    }
+    
+    .vk-icon {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .vk-text {
         font-size: 12px;
     }
     
@@ -477,6 +524,7 @@ body {
     }
 }
 
+/* Маленькие телефоны */
 @media (max-width: 480px) {
     body {
         padding: 5px;
@@ -503,6 +551,7 @@ body {
         font-size: 0.9em;
     }
     
+    /* Мобильные стили для Telegram ссылки */
     .telegram-link {
         top: 8px;
         left: 8px;
@@ -516,6 +565,23 @@ body {
     }
     
     .telegram-text {
+        font-size: 11px;
+    }
+    
+    /* Мобильные стили для VK ссылки */
+    .vk-link {
+        top: 8px;
+        left: 130px;
+        padding: 5px 10px 5px 6px;
+    }
+    
+    .vk-icon {
+        width: 22px;
+        height: 22px;
+        border-width: 1.5px;
+    }
+    
+    .vk-text {
         font-size: 11px;
     }
     
@@ -546,6 +612,7 @@ body {
     }
 }
 
+/* Очень маленькие телефоны (iPhone SE и подобные) */
 @media (max-width: 360px) {
     .cards-container {
         grid-template-columns: repeat(4, 1fr);
@@ -564,6 +631,7 @@ body {
         border-radius: 8px;
     }
     
+    /* Мобильные стили для Telegram ссылки */
     .telegram-link {
         padding: 4px 8px 4px 5px;
     }
@@ -576,8 +644,24 @@ body {
     .telegram-text {
         font-size: 10px;
     }
+    
+    /* Мобильные стили для VK ссылки */
+    .vk-link {
+        left: 115px;
+        padding: 4px 8px 4px 5px;
+    }
+    
+    .vk-icon {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .vk-text {
+        font-size: 10px;
+    }
 }
 
+/* Альбомная ориентация на телефонах */
 @media (max-height: 480px) and (orientation: landscape) {
     .cards-container {
         grid-template-columns: repeat(6, 1fr);
@@ -597,9 +681,30 @@ body {
         width: 150px;
     }
     
+    /* Альбомные стили для Telegram ссылки */
     .telegram-link {
         top: 5px;
         left: 5px;
         padding: 4px 8px 4px 5px;
+    }
+    
+    /* Альбомные стили для VK ссылки */
+    .vk-link {
+        top: 5px;
+        left: 170px;
+        padding: 4px 8px 4px 5px;
+    }
+}
+
+/* Если экран очень узкий, размещаем ссылки вертикально */
+@media (max-width: 280px) {
+    .telegram-link {
+        top: 10px;
+        left: 10px;
+    }
+    
+    .vk-link {
+        top: 70px;
+        left: 10px;
     }
 }
